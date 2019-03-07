@@ -43,29 +43,29 @@
         },
         methods: {
             async login() {
-                this.$apollo.provider.clients.defaultClient.cache.reset()
+                this.$apollo.provider.clients.defaultClient.cache.reset();
 
-                const { email, password } = this.form
+                const { email, password } = this.form;
                 if (email && password) {
                     this.$apollo.mutate({
                         mutation: Login,
                         variables: { email, password }
                     }).then(async (data) => {
-                        const login = data.data.login
-                        const id = login.user.id
-                        const token = login.token
-                        this.saveUserData(id, token)
+                        const login = data.data.login;
+                        const id = login.user.id;
+                        const token = login.token;
+                        this.saveUserData(id, token);
                         // this.$router.push({name: 'workspace'})
                         this.$router.push({name: `workspace`})
                     }).catch((error) => {
-                        this.error = 'Invalid email or password'
+                        this.error = 'Invalid email or password';
                         console.log(error)
                     })
                 }
             },
             saveUserData(id, token) {
-                localStorage.setItem('user-id', id)
-                localStorage.setItem('user-token', token)
+                localStorage.setItem('user-id', id);
+                localStorage.setItem('user-token', token);
                 this.$root.$data.userId = localStorage.getItem('user-id')
             },
         }

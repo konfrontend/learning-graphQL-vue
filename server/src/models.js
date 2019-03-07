@@ -1,7 +1,7 @@
-const mongoose = require("mongoose")
-const moment = require('moment')
-const Schema = mongoose.Schema
-const ObjectId = Schema.Types.ObjectId
+const mongoose = require("mongoose");
+const moment = require('moment');
+const Schema = mongoose.Schema;
+const ObjectId = Schema.Types.ObjectId;
 
 function buildModel(name, schema) {
     return mongoose.model(name, new Schema(schema, {timestamps: true}))
@@ -14,12 +14,12 @@ const Folder = buildModel('Folder', {
         item: { type: ObjectId, refPath: 'shareWith.kind' }
     }],
     parent: { type: ObjectId, ref: 'Folder' },
-})
+});
 
-module.exports.Folder = Folder
+module.exports.Folder = Folder;
 
 module.exports.Team = Folder.discriminator('Team', new Schema({
-}, {timestamps: true}))
+}, {timestamps: true}));
 
 
 module.exports.User = buildModel('User', {
@@ -44,7 +44,7 @@ module.exports.User = buildModel('User', {
     team: { type: ObjectId, ref: 'Team' },
     role: String,
     status: String
-})
+});
 
 module.exports.Group = buildModel('Group', {
     team: { type: ObjectId, ref: 'Team' },
@@ -52,4 +52,4 @@ module.exports.Group = buildModel('Group', {
     initials: String,
     avatarColor: String,
     users: [{ type: ObjectId, ref: 'User' }],
-})
+});
